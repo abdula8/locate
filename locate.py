@@ -1,91 +1,92 @@
-
-
-# To use this script here ia an example:
-# write ==> python script_name.py SEARCH-WORD DIRECTORY-TO-SEARCH-ON SEARCH-FILE-TYPE
-# SEARCH-FILE-TYPE if you want to search on all file types you can write "all" like:
-# python search_on_disk.py NAME d: all
-# if you want to search directories write in file type "dir" like this
-# python search_on_disk.py NAME d: dir
-#new update idea AT 202226102005WED
-#locate NAME
-#script will be converted to .bat file then 
 '''
-    .bat file script
-    the arguments passed to bat file 
-    there is no need to write python search_on_disk NAME D: all
-    now it will be python search_on_disk NAME D:
-            then it will search for all file types and print the path of it if it was found
-    in the future it will be just: "locate FILENAME"
+There are 3 functions:
+    find_file():
+        this function is implementing the searching conditions
+        depending on arguments passed from the user
+        -c      to search the exact file name case sensetivity
+        -f      to search about string in a the files with specific name or its name contains some string
+        -fc     to search in file about string but the file name must be same as in disk case sensetive
+        -non    to search about file that contains in its name some string.
 
 '''
 
-# Update on code at 2022-08-31:18:04
-'''
-from
->>
-if new_file_name.endswith("mp4") and file_type == "videos":
-    find_file(search_name, new_file_name, folderName, filename)
-TO
->>
-if new_file_name.endswith(file_type):
-    find_file(search_name, new_file_name, folderName, filename)
-
-
-
-'''
-
-
-
-import os
-import sys
+from os import walk, chdir, getcwd
+from sys import argv
 from datetime import datetime
 
-folder_names_backup = {}
-print("\n\n\n")
-search_directory = str(sys.argv[2])
-os.chdir(search_directory)
-print(os.getcwd())
-resultsList = []
+# folder_names_backup = {}
+# print("\n\n\n")
 
-def find_file(search_name, new_file_name, folderName, filename):
-    if search_name in new_file_name:
-        results = search_directory+"\\"+ folderName + "\\" + filename # datetime added 202208141240 --> 202226102017
-        # print("search result: file found in ")
-        # print("\n\t\t",folderName,"\n", filename,"\n")
-        print(results)
-        resultsList.append(results)
+search_directory = str(argv[-1])
+
+def find_file(searchFileName:str, searchPattern:str, fileName:str, folderName:str, filename:str, charCase:str) -> None:
+    '''
+    This function just implement the if condition for checking the file name
+    the grep here is used to search a pattern in all files with the searchFileName parameter
+
+    using folderName.split(':')[1] instead of folderName 
+    because using folderName print incorrect path e.g. e:dir\
+    and correct is e:\dir\ so i used search_directory variable
+    and split function with folderName variable with this dilimeter ':' 
+    '''
+    if (charCase == '-h') or (charCase == '--help'):
+        help()
+    elif (charCase == '-c'):
+        exactFileName(searchFileName, fileName, folderName, filename)
+    elif charCase == '-f':
+        from grep import grep
+        grepFileName = search_directory+"\\"+ folderName.split(':')[1] + "\\" + filename
+        grep(searchPattern, grepFileName)
+    elif charCase == '-cf' or charCase == '-fc':
+        from grep import grep
+        grepFileName = exactFileName(searchFileName, fileName, folderName, filename)
+        grep(searchPattern, grepFileName)
+        if grepFileName:
+            print(grepFileName)
+    elif charCase == '-non':
+        if searchFileName in fileName.lower():
+            result = search_directory+"\\"+ folderName.split(':')[1] + "\\" + filename
+            print(result)
+            # resultsList.append(result)
+    else:
+        print("See locate --help or locate -h, to see how use the command.")
 
 
-def search(search_name):
+# this function is used to get the file with the exact matching name
+def exactFileName(searchFileName:str, fileName:str, folderName:str, filename:str) -> None:
+    """
+    This function just implement the if condition for checking the file name
+    fileName if the filename.lower()
+    """
+    if (searchFileName == fileName):
+        # if :
+        result = search_directory+"\\"+ folderName.split(':')[1] + "\\" + filename
+        print("File found in : \n \t", result)
+        # resultsList.append(result)
+        return result
+
+def help():
+    print('''
+        NAME:
+          locate - list files in the disk that contain or match some string
+        locate -non to search file that contains in its name string you specified
+               -c   get file with specific name case sensetive
+               -f   get string from files 
+               -fc  get string from specific file(s)
+               -h or --help display this list
+            ''')
+
+def search(searchFileName:str, searchPattern:str, charCase:str) -> list:
+    '''
+    This is the main function for searching for the file in the hard disk
+    
+    '''
     current_folder_count = 0
     # subfolder_count = 0
     files_count = 0
-    for folderName, subfolders, filenames in os.walk(search_directory):
-        # print('The current folder is ' + folderName)
+    for folderName, subfolders, filenames in walk(search_directory):
         current_folder_count += 1
-        folder_names_backup[folderName] = subfolders + filenames
+        # folder_names_backup[folderName] = subfolders + filenames
         for filename in filenames:
-            # print('FILE INSIDE ' + folderName + ': '+ filename)
             files_count += 1
-            new_file_name = filename.lower()
-            find_file(search_name, new_file_name, folderName, filename)
-
-
-# Clear window before printing results
-os.system("cls")
-
-# applying searching function by getting first argument from cmd
-search(str(sys.argv[1]))
-
-# store results in a file with the name of searching word in the searching directory
-# NOW: it is deactivated which you c an redirect the output using the --> python locate NAME d: > STORENAME
-'''
-resultFileName = str(sys.argv[1]) + datetime.now().strftime("%Y%m%d%I%M%S%p")
-with open(search_directory+'\\'+resultFileName, 'w+') as file:
-    for i in resultsList:
-        file.write(i)
-'''
-
-
-# print("Number of files = {}\n, Number of directories = {}\n, Numner of sub directories = {}\n".format(fc, cfc, sfc))
-# print("\n",int(files_count))
+            find_file(searchFileName, searchPattern, filename, folderName, filename, charCase)
