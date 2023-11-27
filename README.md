@@ -5,7 +5,7 @@ and put it in the c:\locate or directly in C: partition
 
 ## Installation
 Installation steps:
-1. Clone the https:github.com/abdula8/locate.git
+1. Clone the [https://github.com/abdula8/locate.git](https://github.com/abdula8/locate.git)
 2. Install python
 ### the exe file is comming soon
 3. Add the path of the batch file in the PATH environmental variable to be able to access the command using command ine over the system
