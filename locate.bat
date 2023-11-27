@@ -1,3 +1,3 @@
 @echo off
-python c:\locate\locate.py %1 %2
+python c:\locate\main.py %1 %2 %3 %4
 pause

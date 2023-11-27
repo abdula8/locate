@@ -1,0 +1,12 @@
+python3 -m pip install python-dev-tools --user --upgrade
+==> https://objects.githubusercontent.com/github-production-release-asset-2e65be/80988227/2e09490c-3e60-4f04-aadc-c38d76dd741c?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20231127%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20231127T103937Z&X-Amz-Expires=300&X-Amz-Signature=2be77aeca025e4702765b6c9dcd10d7124a61549c9f0caa1ba08944581ec27db&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=80988227&response-content-disposition=attachment%3B%20filename%3Dmsys2-x86_64-20231026.exe&response-content-type=application%2Foctet-stream
+-- get the previous link from the following link:
+    ==> https://www.msys2.org/
+pacman -S mingw-w64-ucrt-x86_64-gcc
+# choco install autoconf
+# choco install automake
+choco install libtool
+choco isntall cmake
+choco install visualstudio2019buildtools
+pip install pylibmagic
+pip install python-magic
