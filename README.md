@@ -27,6 +27,9 @@ locate -cf "search pattern" "search file" path/of/file
 e.g. locate -fc security devopsLearn.txt g:
 search about word "security" inside specific file named devopsLearn.txt with case sensetivity 
 
+locate -r <REGEX> <DIR>
+e.g. -> locate -r \*python\*.pdf d:
+
 locate -h; or locate --help
 to display the help list 
 
