@@ -14,4 +14,10 @@ elif (charCase == '--help') or (charCase == '-h'):
 else:
     search(searchFileName=str(argv[2]), searchPattern=None, charCase=str(argv[1]))
 
-
+print('''
+What do want to do next ?
+        COPY(c)
+        DELETE(d)
+        CUT(ct)
+        
+''')

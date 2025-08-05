@@ -43,10 +43,32 @@ def find_file(searchFileName:str, searchPattern:str, fileName:str, folderName:st
         grep(searchPattern, grepFileName)
         if grepFileName:
             print(grepFileName)
+    # search usnign regex
+    elif charCase == '-r':
+        import re
+        # Convert the user's wildcard pattern into a valid regular expression
+        # '*' becomes '.*' (match any character, zero or more times)
+        # '.' is escaped to match a literal dot
+        regex_pattern = searchFileName.replace('.', r'\.').replace('*', '.*')
+        # 'searchFileName' is the regex pattern, 'search_directory' is the root,
+        # 'folderName' is the current folder, and 'filename' is the file.
+        reg = re.compile(regex_pattern, re.IGNORECASE) # Use re.IGNORECASE for true case-insensitivity
+        
+        # Construct the full path using os.path.join for cross-platform compatibility
+        # and avoiding the brittle split() logic.
+        from os import path
+        full_path = path.join(search_directory, folderName, filename)
+        
+        if reg.search(filename):
+            print(f"Found match: {full_path}")
+
     elif charCase == '-non':
         if searchFileName in fileName.lower():
-            result = search_directory+"\\"+ folderName.split(':')[1] + "\\" + filename
-            print(result)
+            # result = search_directory+"\\"+ folderName.split(':')[1] + "\\" + filename
+            from os import path
+            full_path = path.join(search_directory, folderName, filename)
+            print(f"Found match: {full_path}")
+            # print(result)
             # resultsList.append(result)
     else:
         print("See locate --help or locate -h, to see how use the command.")
@@ -73,6 +95,7 @@ def help():
                -c   get file with specific name case sensetive
                -f   get string from files 
                -fc  get string from specific file(s)
+               -r   search using regex patterns in python
                -h or --help display this list
             ''')
 

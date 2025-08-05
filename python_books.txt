@@ -1,0 +1,8 @@
+Found match: D:\backup\my-laptop-user\Downloads\Telegram Desktop\CyberSecurity\Bug Bounty Automation With Python The secrets of bug hunting.pdf
+Found match: D:\backup\my-laptop-user\Downloads\Telegram Desktop\CyberSecurity\Justin_Seitz_Tim_Arnold_Black_Hat_Python,_2nd_Edition_No_Starch.pdf
+Found match: D:\Courses\BlueTeaming\SEC450\Books\Articles and some books\Python Programming for Hackers & Pentesters.pdf
+Found match: D:\Courses\BlueTeaming\SEC450\Books\Cheat sheets\python-regular-expressions-cheat-sheet.pdf
+Found match: D:\Courses\Network-Security\Understanding Network Hacks Attack and Defense with Python.pdf
+Found match: D:\Courses\Python-Books\01- Justin Seitz, Tim Arnold - Black Hat Python_ Python Programming for Hackers and Pentesters-No Starch Press (2021).pdf
+Found match: D:\Courses\Python-Books\02- T  J O'Connor - Violent Python _ a cookbook for hackers, forensic analysts, penetration testers and security engineers-Syngress (2013).pdf
+Found match: D:\Courses\Python-Books\03- Abhishek Ratan - Practical Network Automation_ Leverage the power of Python and Ansible to optimize your network-Packt Publishing (2017).pdf
